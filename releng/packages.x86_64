@@ -2,7 +2,6 @@ alsa-utils
 amd-ucode
 archinstall
 arch-install-scripts
-auto-cpufreq
 b43-fwcutter
 base
 bat
@@ -13,7 +12,6 @@ brltty
 broadcom-wl
 btop
 btrfs-progs
-cbonsai
 clonezilla
 cloud-init
 cmatrix
@@ -143,7 +141,6 @@ qt6ct
 refind
 reflector
 ripgrep
-rose-pine-cursor
 rp-pppoe
 rsync
 rxvt-unicode-terminfo
@@ -186,7 +183,6 @@ wireless-regdb
 wireless_tools
 wireplumber
 wl-clipboard
-wlogout
 wofi
 wpa_supplicant
 wvdial
@@ -195,10 +191,8 @@ xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 xfsprogs
 xl2tpd
-yay
 yq
 zathura
-zen-browser-bin
 zip
 zoxide
 zsh
