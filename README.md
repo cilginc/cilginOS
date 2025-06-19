@@ -12,7 +12,7 @@
 - Zen Browser (AUR)
 - starship
 
-- [ ] Configure AUR packages
+- [x] Configure AUR packages
 - [ ] Add my configuration files
 - [ ] Add my neovim config
 
@@ -20,7 +20,7 @@
 
 - [ ] Make the smallest and efficient as possible
 
-- [ ] Configure sudo add cilgin
+- [x] Configure sudo add cilgin
 
 - [ ] Auto login as a **cilgin** user
 
