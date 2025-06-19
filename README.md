@@ -12,6 +12,7 @@
 - Zen Browser (AUR)
 - starship
 
+- [ ] Configure AUR packages
 - [ ] Add my configuration files
 - [ ] Add my neovim config
 
@@ -31,11 +32,8 @@
 
 - [ ] Configure networkmanager for preconfigured protonvpn
 
-
 ## Maybe later
 
 - [ ] Add calamares support
 
 - [ ] Make your own arch repository
-
-- [ ] 
