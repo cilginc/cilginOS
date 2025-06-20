@@ -1,0 +1,11 @@
+NAME="cilginOS"
+PRETTY_NAME="cilginOS"
+ID=arch
+BUILD_ID=rolling
+ANSI_COLOR="38;2;23;147;209"
+HOME_URL="https://github.com/cilginc/cilginOS"
+DOCUMENTATION_URL="https://github.com/cilginc/cilginOS"
+SUPPORT_URL="https://github.com/cilginc"
+BUG_REPORT_URL="https://github.com/cilginc/cilginOS/issues"
+PRIVACY_POLICY_URL="We have no policy"
+LOGO=cilginOS-logo
