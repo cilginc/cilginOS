@@ -1,0 +1,9 @@
+[Unit]
+Description=Hyprland Wayland Compositor
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/Hyprland
+
+[Install]
+WantedBy=graphical-session.target
