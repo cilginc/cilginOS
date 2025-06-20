@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Add packages such as
+- [x] Add packages such as
 - nvim
 - fzf
 - hyprland
@@ -13,16 +13,22 @@
 - starship
 
 - [x] Configure AUR packages
-- [ ] Add my configuration files
+- [x] Add my configuration files
+
+- Should i use my config or something like nvchad
 - [ ] Add my neovim config
 
-- [ ] Configure to autostart Hyprland
+- [x] Configure to autostart Hyprland
 
-- [ ] Make the smallest and efficient as possible
+- 2.2GB is ok i think
+- [x] Make the smallest and efficient as possible
 
 - [x] Configure sudo add cilgin
 
-- [ ] Auto login as a **cilgin** user
+- [x] Auto login as a **cilgin** user
+
+- I probably can't do that beacuse my dotfiles are not for small systems. Maybe zsh and starship. But not hyprland and nvim.
+- [ ] Add my dotfiles repo and build the iso with it
 
 - [ ] Detect GPU and autoinstall graphics drivers with that also autoconfigure Hyprland config with that
 
