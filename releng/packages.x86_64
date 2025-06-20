@@ -41,7 +41,6 @@ foot
 foot-terminfo
 fsarchiver
 fzf
-ghostty
 gpart
 gparted
 gpm
@@ -142,6 +141,7 @@ reflector
 ripgrep
 rp-pppoe
 rsync
+cava
 rxvt-unicode-terminfo
 screen
 sdparm
@@ -190,8 +190,7 @@ xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 xfsprogs
-xl2tpd
-yq
+xl2tpd yq
 zathura
 zip
 zoxide
@@ -203,3 +202,7 @@ wlogout
 yay
 zen-browser-bin
 starship
+grim
+slurp
+cliphist
+tesseract

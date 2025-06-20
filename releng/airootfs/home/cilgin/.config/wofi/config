@@ -1,0 +1,14 @@
+term=kitty
+mode=drun
+width=600
+height=400
+
+prompt=Search
+
+allow_images=true
+allow_markup=true
+hide_scroll=true
+
+normal_window=true
+insensitive=true
+columns=1

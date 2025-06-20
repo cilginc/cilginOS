@@ -1,0 +1,115 @@
+/* ~/.config/waybar/style.css */
+* {
+    border: none;
+    border-radius: 12px;
+    background: transparent;
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    min-height: 0;
+}
+
+/* Workspaces with rounded corners */
+#workspaces {
+	background: transparent;
+}
+#workspaces button {
+    padding: 0 6px;
+    margin: 4px 3px;
+    color: #e0def4;
+    background: #191724;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    color: #e0def4;
+    background: #26233a; /* Subtle pine highlight */
+    border-bottom: 1.5px solid #f6c177; /* Pine accent */
+    border-radius: 8px 8px 0 0;
+}
+
+#workspaces button.urgent {
+    color: #eb6f92;
+    animation: none; /* Remove animation */
+    border-bottom: 2px solid #eb6f92;
+}
+
+/* Add rounded text containers */
+window#waybar {
+    background-color: transparent; /* Slightly more opaque */
+    border-radius: 16px;
+    margin: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Existing modules - just add rounded corners */
+ .module, #tray, #mpd, #pulseaudio, #network, 
+#power-profiles-daemon, #cpu, #memory, #temperature,
+#backlight, #clock, #keyboard-state, #sway-language,
+#custom-kdeconnect, #custom-power, #custom-notification,
+#idle_inhibitor {
+    border-radius: 8px;
+    padding: 0 10px;
+    background-color: #191724;
+    margin: 4px 3px;
+}
+/* Specific module colors */
+#window {
+    color: #e0def4;
+    padding: 0 16px;
+    /* font-style: italic; */
+    background-color: #191724;
+    border-radius: 12px;
+    margin: 4px 2px;
+    
+}
+
+#mpd { color: #9ccfd8; } /* foam */
+#pulseaudio { color: #ebbcba; } /* rose */
+#network { color: #9ccfd8; } /* foam */
+#network.disconnected { color: #eb6f92; } /* love */
+#power-profiles-daemon { color: #f6c177; } /* gold */
+#cpu { color: #31748f; } /* pine */
+#memory { color: #c4a7e7; } /* iris */
+#temperature { color: #eb6f92; } /* love */
+#backlight { color: #f6c177; } /* gold */
+#clock { color: #e0def4; } /* text */
+#keyboard-state { color: #c4a7e7; } /* iris */
+#sway-language { color: #9ccfd8; } /* foam */
+#custom-kdeconnect { color: #9ccfd8; } /* foam */
+#custom-power { color: #eb6f92; } /* love */
+#custom-notification { color: #c4a7e7; } /* iris */
+#idle_inhibitor { color: #f6c177; } /* gold */
+#idle_inhibitor.activated { color: #191724; background-color: #f6c177; } /* gold */
+
+
+
+/* right click menu on apps */
+#tray menu {
+    background-color: rgba(38, 35, 58, 0.9); /* overlay */
+    border: 1px solid rgba(64, 61, 82, 0.7); /* highlight-med */
+    border-radius: 12px;
+    color: #e0def4;}
+
+
+/* Tooltip styling */
+tooltip {
+    background-color: rgba(38, 35, 58, 0.9); /* overlay */
+    border: 1px solid rgba(64, 61, 82, 0.7); /* highlight-med */
+    border-radius: 12px;
+    color: #e0def4;
+}
+
+/* Animations */
+@keyframes urgent-flash {
+    0% { background-color: rgba(38, 35, 58, 0.8); }
+    50% { background-color: rgba(235, 111, 146, 0.6); } /* love */
+    100% { background-color: rgba(38, 35, 58, 0.8); }
+}
+
+@keyframes blink {
+    to {
+        background-color: rgba(25, 23, 36, 0.7);
+        color: #eb6f92;
+    }
+}
