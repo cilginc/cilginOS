@@ -190,7 +190,6 @@ xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 xfsprogs
-xl2tpd yq
 zathura
 zip
 zoxide
@@ -206,3 +205,6 @@ grim
 slurp
 cliphist
 tesseract
+tesseract-data-eng
+tesseract-data-osd
+tesseract-data-tur
