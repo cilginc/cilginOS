@@ -1,0 +1,6 @@
+polkit.addRule(function(action, subject) {
+    if (subject.user == "cilgin") {
+        return polkit.Result.YES;
+    }
+});
+
