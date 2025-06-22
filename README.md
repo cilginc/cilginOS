@@ -1,3 +1,9 @@
+## Fix these
+
+- [ ] swww not works when autostart
+- [ ] gtk theme config's are still not working
+- [ ] polkit is not working
+
 # TODO
 
 - [x] Add packages such as
