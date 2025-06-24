@@ -1,8 +1,8 @@
 ## Fix these
 
-- [ ] swww not works when autostart
-- [ ] gtk theme config's are still not working
-- [ ] polkit is not working
+- [x] swww not works when autostart
+- [x] gtk theme config's are still not working
+- [-] polkit is not working
 - [x] Add themes and icons to /usr/share/icons/ and /usr/share/themes/ instead of user directory
 
 # TODO
