@@ -2,6 +2,7 @@ alsa-utils
 amd-ucode
 archinstall
 arch-install-scripts
+xorg-xhost
 b43-fwcutter
 base
 bat
