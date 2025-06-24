@@ -1,9 +1,7 @@
 alsa-utils
 amd-ucode
 archinstall
-polkit-kde-agent
 arch-install-scripts
-xorg-xhost
 b43-fwcutter
 base
 bat
@@ -133,6 +131,7 @@ pipewire-jack
 pipewire-pulse
 pipewire-v4l2
 playerctl
+polkit-kde-agent
 ppp
 pptpclient
 pulseaudio-qt
@@ -202,6 +201,7 @@ xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
 xfsprogs
+xorg-xhost
 yay
 zathura
 zen-browser-bin
