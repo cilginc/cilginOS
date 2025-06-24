@@ -133,7 +133,6 @@ pipewire-jack
 pipewire-pulse
 pipewire-v4l2
 playerctl
-polkit-kde-agent
 ppp
 pptpclient
 pulseaudio-qt
