@@ -2,7 +2,6 @@ alsa-utils
 amd-ucode
 archinstall
 arch-install-scripts
-auto-cpufreq
 b43-fwcutter
 base
 bat
@@ -102,7 +101,6 @@ mkinitcpio-archiso
 mkinitcpio-nfs-utils
 modemmanager
 mtools
-nano
 nbd
 ndisc6
 neovide
