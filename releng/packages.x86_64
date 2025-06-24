@@ -1,6 +1,7 @@
 alsa-utils
 amd-ucode
 archinstall
+polkit-kde-agent
 arch-install-scripts
 xorg-xhost
 b43-fwcutter
