@@ -1,6 +1,5 @@
 polkit.addRule(function(action, subject) {
-    if (subject.user == "cilgin") {
+    if (subject.isInGroup("wheel")) {
         return polkit.Result.YES;
     }
 });
-
