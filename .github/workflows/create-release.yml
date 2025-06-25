@@ -1,0 +1,49 @@
+name: Create Release on Push to Release Branch
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+
+    steps:
+      - name: Install deps
+        run: |
+          pacman -Sy --needed --noconfirm git base-devel
+
+      - name: Build PKGBUILD
+        run: |
+          git clone https://aur.archlinux.org/yay.git
+          cd yay
+          runuser --user nobody -- makepkg -si
+
+      - name: Debug
+        run: |
+          ls -la
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Debug
+        run: |
+          ls -la
+
+      # - name: Get short commit SHA
+      #   id: vars
+      #   run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      #
+      # - name: Create GitHub Release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     tag_name: release-${{ steps.get_tag.outputs.tag }}
+      #     name: Release - Commit ${{ steps.get_tag.outputs.tag }}
+      #     body: "Automated release from push to release branch."
+      #     draft: false
+      #     prerelease: false
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
