@@ -11,8 +11,7 @@ get_packages() {
 make_packages() {
   for packet in $PACKAGES; do
     cd $packet || exit
-    # runuser --user nobody --
-    makepkg --clean -s --skipchecksums --skipinteg
+    runuser --user nobody -- makepkg --clean -s --skipchecksums --skipinteg
     mv ./*.pkg.tar.zst ..
     cd ..
     rm -rf $packet
