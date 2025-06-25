@@ -43,7 +43,6 @@ jobs:
       - name: Change permissions
         run: |
           chown -R builder:builder /__w/cilginOS/cilginOS/ 
-          su builder
 
       - name: Build PKGBUILD
         run: |
