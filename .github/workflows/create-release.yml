@@ -39,10 +39,12 @@ jobs:
       - name: Create build user
         run: |
           useradd -m builder
+          echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
       - name: Change permissions
         run: |
-          chown -R builder:builder /__w/cilginOS/cilginOS/ 
+          chown -R builder:builder . 
+
 
       - name: Build PKGBUILD
         run: |
