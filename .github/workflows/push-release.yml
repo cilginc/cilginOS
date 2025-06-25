@@ -1,4 +1,4 @@
-name: Push to Release
+name: Merge to Release
 
 on:
   workflow_dispatch:
@@ -21,10 +21,12 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Push main to release
+      - name: Merge main to release
         run: |
-          echo "🔄 Push from main to release branch"
-          git push origin main:release
+          echo "🔄 Merge main to release branch"
+          git checkout release
+          git merge main
+          git push origin release
 
       - name: ✅ Done
         run: |
