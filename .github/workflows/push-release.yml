@@ -25,7 +25,7 @@ jobs:
       - name: Force push main to release
         run: |
           echo "🔄 Forcing push from main to release branch"
-          git push origin main:release --force
+          git push origin main:release
 
       - name: ✅ Done
         run: |

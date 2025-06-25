@@ -47,6 +47,10 @@ jobs:
           chown -R builder:builder . 
           cd localrepo
 
+      - name: Debug
+        run: |
+          ls -la
+          pwd
 
       - name: Build PKGBUILD
         run: |
