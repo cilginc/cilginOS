@@ -47,17 +47,38 @@ jobs:
           ls -la
           pwd
 
-      # - name: Get short commit SHA
-      #   id: vars
-      #   run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-      #
-      # - name: Create GitHub Release
-      #   uses: softprops/action-gh-release@v2
-      #   with:
-      #     tag_name: release-${{ steps.get_tag.outputs.tag }}
-      #     name: Release - Commit ${{ steps.get_tag.outputs.tag }}
-      #     body: "Automated release from push to release branch."
-      #     draft: false
-      #     prerelease: false
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install archiso
+        run: |
+          pacman -Sy --needed --noconfirm archiso
+
+      - name: Debug
+        run: |
+          ls -la
+          pwd
+
+      - name: Build ISO
+        run: |
+          mkarchiso -v -w /__w/cilginOS/cilginOS/output releng
+
+      - name: Debug
+        run: |
+          ls -la
+          ls -la out
+          ls -la output
+          pwd
+
+      - name: Get short commit SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ./out/*
+          tag_name: release-${{ steps.vars.outputs.sha_short }}
+          name: "Release - Commit ${{ steps.vars.outputs.sha_short }}"
+          body: "Automated release from push to release branch."
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
