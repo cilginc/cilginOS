@@ -5,6 +5,11 @@ on:
     branches:
       - release
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "Push to Release"
+    types:
+      - completed
 
 jobs:
   create-release:
@@ -17,15 +22,11 @@ jobs:
         run: |
           pacman -Sy --needed --noconfirm git base-devel
 
-      - name: Build PKGBUILD
-        run: |
-          git clone https://aur.archlinux.org/yay.git
-          cd yay
-          runuser --user nobody -- makepkg -si
-
       - name: Debug
         run: |
           ls -la
+          whoami
+          pwd
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,6 +34,18 @@ jobs:
       - name: Debug
         run: |
           ls -la
+          pwd
+
+      - name: Build PKGBUILD
+        run: |
+          mkdir localrepo
+          cd localrepo
+          ../update.sh
+
+      - name: Debug
+        run: |
+          ls -la
+          pwd
 
       # - name: Get short commit SHA
       #   id: vars
