@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *"
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository (with tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Force push main to release
+        run: |
+          echo "🔄 Forcing push from main to release branch"
+          git push origin main:release --force
+
+      - name: ✅ Done
+        run: |
+          echo "🎉 Release branch updated!"
+          echo "🕒 Time: $(date)"
