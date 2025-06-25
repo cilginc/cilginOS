@@ -43,13 +43,13 @@ jobs:
 
       - name: Change permissions
         run: |
+          mkdir localrepo
           chown -R builder:builder . 
+          cd localrepo
 
 
       - name: Build PKGBUILD
         run: |
-          mkdir localrepo
-          cd localrepo
           ../update.sh
 
       - name: Debug
