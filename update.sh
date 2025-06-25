@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 
-PACKAGES="cbonsai \
-rose-pine-cursor \
-wlogout \
-yay \
-zen-browser-bin"
+PACKAGES="cbonsai rose-pine-cursor wlogout yay zen-browser-bin"
 
 get_packages() {
-  yay -G $PACKAGES
+  for packet in $PACKAGES; do
+    git clone https://aur.archlinux.org/${packet}.git
+  done
 }
 
 make_packages() {
   for packet in $PACKAGES; do
-    cd "$packet" || exit
-    runuser --user nobody -- makepkg --clean -s --skipchecksums --skipinteg
-    mv ./*.pkg.tar.zst
+    cd $packet || exit
+    # runuser --user nobody --
+    makepkg --clean -s --skipchecksums --skipinteg
+    mv ./*.pkg.tar.zst ..
     cd ..
     rm -rf $packet
   done
