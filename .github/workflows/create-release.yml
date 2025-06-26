@@ -20,13 +20,7 @@ jobs:
     steps:
       - name: Install deps
         run: |
-          pacman -Sy --needed --noconfirm git base-devel
-
-      - name: Debug
-        run: |
-          ls -la
-          whoami
-          pwd
+          pacman -Sy --needed --noconfirm git base-devel nvim zsh archiso
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,23 +35,12 @@ jobs:
           mkdir localrepo
           chown -R cilgin:cilgin .
 
-
-      # - name: Build PKGBUILD
-      #   run: |
-      #     cd localrepo
-      #     ls -la
-      #     ls -la ..
-      #     ../update.sh
-
-
-      - name: Install archiso
+      - name: Build PKGBUILD
         run: |
-          pacman -Sy --needed --noconfirm archiso
-
-
-      - name: Install Zsh
-        run: |
-          pacman -Sy --needed --noconfirm zsh
+          cd localrepo
+          ls -la
+          ls -la ..
+          ../update.sh
 
       - name: Zinit files
         run: |
@@ -68,10 +51,6 @@ jobs:
           cp -r $HOME/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
           rm -r ./releng/airootfs/home/cilgin/.local/share/zinit/completions/*
 
-      - name: Install nvim
-        run: |
-          pacman -Sy --needed --noconfirm nvim
-
       - name: Install nvchad
         run: |
           git clone --depth 1 https://github.com/NvChad/starter $HOME/.config/nvim
@@ -80,12 +59,11 @@ jobs:
           find $HOME/.local/share/nvim -type d -name "*.git*" -print -exec rm -rf {} +
           cp -r $HOME/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/
 
-
       - name: Clean up and Build ISO
         run: |
           chown -R root:root .
           find ./releng/airootfs -type d -name "*.git*" -print -exec rm -rf {} +
-          
+
           if [ -n "$(find ./releng/airootfs -type d -name '*.git*')" ]; then
             find ./releng/airootfs -type d -name ".git"
             exit 1
@@ -93,7 +71,7 @@ jobs:
             echo "Cleanup successful."
           fi
 
-      - name: Update permissions 
+      - name: Update permissions
         run: |
           ./permission.sh releng >> ./releng/profiledef.sh
 
@@ -101,8 +79,7 @@ jobs:
         run: |
           mkdir out
           mkdir output
-          mkarchiso -v -w ./output -o ./out releng
-
+          mkarchiso -v -w $(mktemp -d) -o ./out releng
 
       - name: Get short commit SHA
         id: vars
