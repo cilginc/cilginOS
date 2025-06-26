@@ -25,7 +25,7 @@ add_packages() {
 
 main() {
   get_packages
-  chown -R builder:builder .
+  chown -R cilgin:cilgin .
   make_packages
   add_packages
   find . -type f -name "*debug*" -delete

@@ -97,9 +97,18 @@ jobs:
           sudo -u cilgin sh -c "nvim --headless '+Lazy! sync' +qa"
           cp -r /home/cilgin/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/
 
-      - name: Clean up .git directories from airootfs
+
+      - name: Clean up and Build ISO
         run: |
+          chown -R root:root .
           find ./releng/airootfs -type d -name ".git" -exec rm -rf {} +
+          
+          if [ -n "$(find ./releng/airootfs -type d -name '.git')" ]; then
+            find ./releng/airootfs -type d -name ".git"
+            exit 1
+          else
+            echo "Cleanup successful."
+          fi
 
       - name: Debug
         run: |
@@ -112,7 +121,6 @@ jobs:
         run: |
           mkdir out
           mkdir output
-          chown -R root:root .
           mkarchiso -v -w ./output releng
 
       - name: Debug
