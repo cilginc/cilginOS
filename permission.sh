@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 #
-# This script generates the file_permissions array for an archiso profiledef.sh
-# It preserves a list of predefined exceptions and assigns a default
-# owner:group:mode (1000:1000:644 for files, 1000:1000:755 for dirs)
-# to all other files and directories within the airootfs.
+# This script generates a partial file_permissions array for profiledef.sh.
+# It includes a predefined list of root-owned files and then generates
+# 1000:1000 permissions ONLY for the contents of specific directories.
 
 set -euo pipefail
 
@@ -24,10 +23,7 @@ if [[ ! -d "$AIROOTFS_DIR" ]]; then
   exit 1
 fi
 
-# --- Main Script ---
-
-# Define an associative array to hold the explicit permission definitions.
-# These will be printed first and will be excluded from the general scan.
+# 1. Define the explicit, root-owned permissions that should always be present.
 declare -A explicit_permissions=(
   ["/etc/shadow"]="0:0:400"
   ["/etc/gshadow"]="0:0:400"
@@ -39,55 +35,57 @@ declare -A explicit_permissions=(
   ["/usr/local/bin/livecd-sound"]="0:0:755"
 )
 
+# 2. Define the specific ISO paths to process for 1000:1000 ownership.
+declare -a target_iso_dirs=(
+    "/home/cilgin"
+    "/usr/share/themes"
+    "/usr/share/icons"
+)
+
 # --- Output Generation ---
 
 # Start printing the Bash array definition
 echo "file_permissions=("
 
 # Print the explicit permissions first
-echo "  # Predefined critical file permissions"
+echo "  # Predefined critical file permissions (owned by root)"
 for path in "${!explicit_permissions[@]}"; do
   printf '  ["%s"]="%s"\n' "${path}" "${explicit_permissions[$path]}"
 done
 echo "" # Add a newline for readability
 
-# Now, generate the rest
-echo "  # Automatically generated default permissions (1000:1000)"
-# Change directory to avoid complex path manipulation with sed/awk/etc.
-cd "${AIROOTFS_DIR}" || exit
+# Now, process ONLY the target directories
+echo "  # Automatically generated permissions for user-specific directories (owned by 1000:1000)"
 
-# Use find to list all files and directories starting from the current location (.)
-find . -print0 | while IFS= read -r -d '' path; do
-  # Remove the leading './' from find's output
-  iso_path="${path#./}"
-  # For the root directory itself, `find` outputs '.', which becomes an empty string.
-  # We need to represent it as '/'.
-  if [[ -z "$iso_path" ]]; then
-      iso_path="/"
-  else
-      # Prepend the root slash for all other paths
-      iso_path="/${iso_path}"
-  fi
+# Loop through each target directory
+for iso_dir in "${target_iso_dirs[@]}"; do
+    fs_path="${AIROOTFS_DIR}${iso_dir}"
 
-  # Check if the path is one of our explicit exceptions. If so, skip it.
-  if [[ -v "explicit_permissions[${iso_path}]" ]]; then
-    continue
-  fi
+    # Safely skip if the directory doesn't exist in the airootfs
+    if [[ ! -d "${fs_path}" ]]; then
+        echo "  # Info: Skipping non-existent directory: ${iso_dir}" >&2
+        continue
+    fi
 
-  # Determine the permission mode based on type
-  mode=""
-  if [[ -d "$path" ]]; then
-    mode="755"
-  elif [[ -f "$path" ]]; then
-    mode="644"
-  else
-    # Skip symlinks, block devices, etc.
-    continue
-  fi
+    # Use find to scan the specific directory and its contents
+    find "${fs_path}" -print0 | while IFS= read -r -d '' full_path; do
+        # Convert the full filesystem path to the required path within the ISO
+        iso_path="${full_path#${AIROOTFS_DIR}}"
 
-  # Print the formatted line for the array
-  printf '  ["%s"]="1000:1000:%s"\n' "${iso_path}" "${mode}"
+        # Determine the permission mode based on type (directory or file)
+        mode=""
+        if [[ -d "$full_path" ]]; then
+            mode="755"
+        elif [[ -f "$full_path" ]]; then
+            mode="644"
+        else
+            # Skip symlinks, sockets, etc. as they don't get explicit perms this way
+            continue
+        fi
 
+        # Print the formatted line for the array
+        printf '  ["%s"]="1000:1000:%s"\n' "${iso_path}" "${mode}"
+    done
 done
 
 # Print the closing parenthesis for the array

@@ -94,7 +94,7 @@ jobs:
 
       - name: Update permissions 
         run: |
-          ./update.sh releng >> ./releng/profiledef.sh
+          ./permission.sh releng >> ./releng/profiledef.sh
 
       - name: Build ISO
         run: |
