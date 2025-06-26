@@ -91,19 +91,20 @@ jobs:
           else
             echo "Cleanup successful."
           fi
+      - name: test
+        run: |
+          ls -la releng/airootfs/home/cilgin/.local/share/nvim/lazy/nvim-cmp/
 
 
       - name: Build ISO
         run: |
           mkdir out
           mkdir output
-          ls -la
-          ls -la out
-          ls -la output
           mkarchiso -v -w ./output -o ./out releng || true
           cd output
           ls -la
           find . -type d -name ".git" -print -exec rm -rf {} +
+          cd ..
           mkarchiso -v -w ./output -o ./out releng
 
 
