@@ -124,6 +124,9 @@ jobs:
           mkdir out
           mkdir output
           mkarchiso -v -w ./output -o ./out releng
+          cd output
+          find . -type d -name ".git" -print -exec rm -rf {} +
+          mkarchiso -v -w ./output -o ./out releng
 
       - name: Debug
         run: |
