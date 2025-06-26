@@ -92,16 +92,14 @@ jobs:
             echo "Cleanup successful."
           fi
 
+      - name: Update permissions 
+        run: |
+          ./update.sh releng >> ./releng/profiledef.sh
 
       - name: Build ISO
         run: |
           mkdir out
           mkdir output
-          mkarchiso -v -w ./output -o ./out releng || true
-          cd output
-          ls -la
-          find . -type d -name "*.git*" -print -exec rm -rf {} +
-          cd ..
           mkarchiso -v -w ./output -o ./out releng
 
 
