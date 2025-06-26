@@ -67,12 +67,13 @@ jobs:
         run: |
           pacman -Sy --needed --noconfirm archiso
 
-      # - name: Debug
-      #   run: |
-      #     ls -la
-      #     pwd
-      #     whoami
-      #     echo $HOME
+      - name: Debug
+        run: |
+          ls -la
+          ls -la /home
+          pwd
+          whoami
+          echo $HOME
       #
       # - name: Install Zsh
       #   run: |
@@ -93,11 +94,11 @@ jobs:
         run: |
           useradd -m cilgin
           echo 'cilgin ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-          git clone --depth 1 https://github.com/NvChad/starter /github/home/cilgin/.config/nvim
+          git clone --depth 1 https://github.com/NvChad/starter /home/cilgin/.config/nvim
           ls -la /github/home/cilgin
-          export HOME=/github/home/cilgin
-          sudo -u cilgin nvim --headless "+Lazy! sync" +qa
-          cp -r /github/home/cilgin/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/nvim/
+          ls -la /home/cilgin
+          runuser --user cilgin -- nvim --headless "+Lazy! sync" +qa
+          cp -r /home/cilgin/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/nvim/
 
       - name: Debug
         run: |
