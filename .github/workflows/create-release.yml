@@ -91,9 +91,6 @@ jobs:
           else
             echo "Cleanup successful."
           fi
-      - name: test
-        run: |
-          ls -la releng/airootfs/home/cilgin/.local/share/nvim/lazy/nvim-cmp/
 
 
       - name: Build ISO
