@@ -82,10 +82,11 @@ jobs:
         run: |
           cp releng/airootfs/etc/skel/.zshrc $HOME
           ls -la
+          export TERM=xterm
           zsh -c "source ~/.zshrc"
-          ls -la /root/.local/share/
+          ls -la $HOME/.local/share/
           ls -la ./releng/airootfs/home/cilgin/.local/share/
-          cp -r /root/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
+          cp -r $HOME/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
 
       - name: Debug
         run: |
