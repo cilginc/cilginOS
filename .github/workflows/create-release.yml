@@ -66,6 +66,7 @@ jobs:
           zsh -c "source ~/.zshrc"
           find $HOME/.local/share/zinit -type d -name "*.git*" -print -exec rm -rf {} +
           cp -r $HOME/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
+          rm -r ./releng/airootfs/home/cilgin/.local/share/zinit/completions/*
 
       - name: Install nvim
         run: |
