@@ -95,9 +95,9 @@ jobs:
           useradd -m cilgin
           echo 'cilgin ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
           git clone --depth 1 https://github.com/NvChad/starter /home/cilgin/.config/nvim
-          ls -la /github/home/cilgin
+          ls -la /home
           ls -la /home/cilgin
-          runuser --user cilgin -- nvim --headless "+Lazy! sync" +qa
+          sudo -u cilgin sh -c "nvim --headless '+Lazy! sync' +qa"
           cp -r /home/cilgin/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/nvim/
 
       - name: Debug
