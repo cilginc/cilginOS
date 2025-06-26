@@ -84,7 +84,7 @@ jobs:
           cp releng/airootfs/etc/skel/.zshrc $HOME
           export TERM=xterm
           zsh -c "source ~/.zshrc"
-          find $HOME/.local/share/zinit -type d -name ".git" -exec rm -rf {} +
+          find $HOME/.local/share/zinit -type d -name ".git" -print -exec rm -rf {} +
           cp -r $HOME/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
 
       - name: Install nvim
@@ -96,14 +96,14 @@ jobs:
           git clone --depth 1 https://github.com/NvChad/starter /home/cilgin/.config/nvim
           git clone --depth 1 https://github.com/NvChad/starter ./releng/airootfs/home/cilgin/.config/nvim
           sudo -u cilgin sh -c "nvim --headless '+Lazy! sync' +qa"
-          find /home/cilgin/.local/share/nvim -type d -name ".git" -exec rm -rf {} +
+          find /home/cilgin/.local/share/nvim -type d -name ".git" -print -exec rm -rf {} +
           cp -r /home/cilgin/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/
 
 
       - name: Clean up and Build ISO
         run: |
           chown -R root:root .
-          find ./releng/airootfs -type d -name ".git" -exec rm -rf {} +
+          find ./releng/airootfs -type d -name ".git" -print -exec rm -rf {} +
           
           if [ -n "$(find ./releng/airootfs -type d -name '.git')" ]; then
             find ./releng/airootfs -type d -name ".git"
@@ -123,7 +123,7 @@ jobs:
         run: |
           mkdir out
           mkdir output
-          mkarchiso -v -w ./output releng
+          mkarchiso -v -w ./output -o ./out releng
 
       - name: Debug
         run: |
