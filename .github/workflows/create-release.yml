@@ -18,9 +18,9 @@ jobs:
       image: archlinux:latest
 
     steps:
-      # - name: Install deps
-      #   run: |
-      #     pacman -Sy --needed --noconfirm git base-devel
+      - name: Install deps
+        run: |
+          pacman -Sy --needed --noconfirm git base-devel
 
       - name: Debug
         run: |
@@ -51,12 +51,12 @@ jobs:
           ls -la
           pwd
 
-      # - name: Build PKGBUILD
-      #   run: |
-      #     cd localrepo
-      #     ls -la
-      #     ls -la ..
-      #     ../update.sh
+      - name: Build PKGBUILD
+        run: |
+          cd localrepo
+          ls -la
+          ls -la ..
+          ../update.sh
 
       - name: Debug
         run: |
@@ -72,15 +72,28 @@ jobs:
           ls -la
           pwd
           whoami
+          echo $HOME
 
-      - name: Diagnose Path Issues
+      - name: Install Zsh
         run: |
-          cd releng
-          ls -l airootfs/home/cilgin/.local/share/zinit/plugins/zsh-users---zsh-completions/src/_teamocil
+          pacman -Sy --needed --noconfirm zsh
 
-          grep -r "/home/runner" airootfs/home/cilgin/.local/share/zinit || true
+      - name: Zinit files
+        run: |
+          cp releng/airootfs/etc/skel/.zshrc $HOME
+          ls -la
+          zsh -c "source ~/.zshrc"
+          ls -la /root/.local/share/
+          ls -la ./releng/airootfs/home/cilgin/.local/share/
+          cp -r /root/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
 
-          grep "/home/runner" airootfs/home/cilgin/.local/share/zinit/plugins/zsh-users---zsh-completions/src/_teamocil || true
+      - name: Debug
+        run: |
+          ls -la
+          pwd
+          whoami
+          echo $HOME
+
 
       - name: Build ISO
         run: |
