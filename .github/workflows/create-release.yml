@@ -44,7 +44,7 @@ jobs:
       - name: Change permissions
         run: |
           mkdir localrepo
-          chown -R builder:builder . 
+          chown -R builder:builder .
 
       - name: Debug
         run: |
@@ -73,11 +73,17 @@ jobs:
           pwd
           whoami
 
+      - name: Diagnose Path Issues
+        run: |
+          ls -l airootfs/home/cilgin/.local/share/zinit/plugins/zsh-users---zsh-completions/src/_teamocil
+
+          grep -r "/home/runner" airootfs/home/cilgin/.local/share/zinit || true
+
+          grep "/home/runner" airootfs/home/cilgin/.local/share/zinit/plugins/zsh-users---zsh-completions/src/_teamocil || true
+
       - name: Build ISO
         run: |
-          mkdir output
-          chown -R $(whoami):$(whoami) .
-          mkarchiso -v -w /__w/cilginOS/cilginOS/output releng
+          mkarchiso -v -w ${{ runner.temp }}/output -o ${{ runner.temp }}/out releng
 
       - name: Debug
         run: |
@@ -93,7 +99,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ./out/*
+          files: ${{ runner.temp }}/out/*
           tag_name: release-${{ steps.vars.outputs.sha_short }}
           name: "Release - Commit ${{ steps.vars.outputs.sha_short }}"
           body: "Automated release from push to release branch."
