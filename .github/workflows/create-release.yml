@@ -31,11 +31,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Debug
-        run: |
-          ls -la
-          pwd
-
       - name: Create build user
         run: |
           useradd -m cilgin
@@ -46,10 +41,6 @@ jobs:
           mkdir localrepo
           chown -R cilgin:cilgin .
 
-      - name: Debug
-        run: |
-          ls -la
-          pwd
 
       # - name: Build PKGBUILD
       #   run: |
@@ -58,22 +49,11 @@ jobs:
       #     ls -la ..
       #     ../update.sh
 
-      - name: Debug
-        run: |
-          ls -la
-          pwd
 
       - name: Install archiso
         run: |
           pacman -Sy --needed --noconfirm archiso
 
-      - name: Debug
-        run: |
-          ls -la
-          ls -la /home
-          pwd
-          whoami
-          echo $HOME
 
       - name: Install Zsh
         run: |
@@ -112,28 +92,20 @@ jobs:
             echo "Cleanup successful."
           fi
 
-      - name: Debug
-        run: |
-          ls -la
-          pwd
-          whoami
-          echo $HOME
 
       - name: Build ISO
         run: |
           mkdir out
           mkdir output
-          mkarchiso -v -w ./output -o ./out releng
-          cd output
-          find . -type d -name ".git" -print -exec rm -rf {} +
-          mkarchiso -v -w ./output -o ./out releng
-
-      - name: Debug
-        run: |
           ls -la
           ls -la out
           ls -la output
-          pwd
+          mkarchiso -v -w ./output -o ./out releng || true
+          cd output
+          ls -la
+          find . -type d -name ".git" -print -exec rm -rf {} +
+          mkarchiso -v -w ./output -o ./out releng
+
 
       - name: Get short commit SHA
         id: vars
