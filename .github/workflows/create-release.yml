@@ -85,17 +85,17 @@ jobs:
           zsh -c "source ~/.zshrc"
           cp -r $HOME/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
 
-      - name: Install Zsh
+      - name: Install nvim
         run: |
           pacman -Sy --needed --noconfirm nvim
 
       - name: Install nvchad
         run: |
-          git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
-          nvim --headless "+Lazy! sync" +qa
-          cp -r $HOME/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/nvim/
-          ls -la ./releng/airootfs/home/cilgin/.local/nvim || exit
-          ls -la ./releng/airootfs/home/cilgin/.local/nvim/* || exit
+          useradd -m cilgin
+          echo 'cilgin ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+          runuser --user cilgin -- git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
+          runuser --user cilgin -- nvim --headless "+Lazy! sync" +qa
+          runuser --user cilgin -- cp -r $HOME/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/nvim/
 
       - name: Debug
         run: |
