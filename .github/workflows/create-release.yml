@@ -93,8 +93,13 @@ jobs:
       - name: Install nvchad
         run: |
           git clone --depth 1 https://github.com/NvChad/starter /home/cilgin/.config/nvim
+          git clone --depth 1 https://github.com/NvChad/starter ./releng/airootfs/home/cilgin/.config/nvim
           sudo -u cilgin sh -c "nvim --headless '+Lazy! sync' +qa"
           cp -r /home/cilgin/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/
+
+      - name: Clean up .git directories from airootfs
+        run: |
+          find ./releng/airootfs -type d -name ".git" -exec rm -rf {} +
 
       - name: Debug
         run: |
@@ -102,7 +107,6 @@ jobs:
           pwd
           whoami
           echo $HOME
-
 
       - name: Build ISO
         run: |
