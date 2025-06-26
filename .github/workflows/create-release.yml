@@ -71,9 +71,12 @@ jobs:
         run: |
           ls -la
           pwd
+          whoami
 
       - name: Build ISO
         run: |
+          mkdir output
+          chown -R $(whoami):$(whoami) .
           mkarchiso -v -w /__w/cilginOS/cilginOS/output releng
 
       - name: Debug
