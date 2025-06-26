@@ -18,9 +18,9 @@ jobs:
       image: archlinux:latest
 
     steps:
-      - name: Install deps
-        run: |
-          pacman -Sy --needed --noconfirm git base-devel
+      # - name: Install deps
+      #   run: |
+      #     pacman -Sy --needed --noconfirm git base-devel
 
       - name: Debug
         run: |
@@ -51,12 +51,12 @@ jobs:
           ls -la
           pwd
 
-      - name: Build PKGBUILD
-        run: |
-          cd localrepo
-          ls -la
-          ls -la ..
-          ../update.sh
+      # - name: Build PKGBUILD
+      #   run: |
+      #     cd localrepo
+      #     ls -la
+      #     ls -la ..
+      #     ../update.sh
 
       - name: Debug
         run: |
@@ -75,6 +75,7 @@ jobs:
 
       - name: Diagnose Path Issues
         run: |
+          cd releng
           ls -l airootfs/home/cilgin/.local/share/zinit/plugins/zsh-users---zsh-completions/src/_teamocil
 
           grep -r "/home/runner" airootfs/home/cilgin/.local/share/zinit || true
