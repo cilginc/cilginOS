@@ -84,7 +84,7 @@ jobs:
           cp releng/airootfs/etc/skel/.zshrc $HOME
           export TERM=xterm
           zsh -c "source ~/.zshrc"
-          find $HOME/cilgin/.local/share/zinit -type d -name ".git" -exec rm -rf {} +
+          find $HOME/.local/share/zinit -type d -name ".git" -exec rm -rf {} +
           cp -r $HOME/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
 
       - name: Install nvim
