@@ -36,54 +36,54 @@ jobs:
           ls -la
           pwd
 
-      - name: Create build user
-        run: |
-          useradd -m builder
-          echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+      # - name: Create build user
+      #   run: |
+      #     useradd -m builder
+      #     echo 'builder ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-      - name: Change permissions
-        run: |
-          mkdir localrepo
-          chown -R builder:builder .
-
-      - name: Debug
-        run: |
-          ls -la
-          pwd
-
-      - name: Build PKGBUILD
-        run: |
-          cd localrepo
-          ls -la
-          ls -la ..
-          ../update.sh
-
-      - name: Debug
-        run: |
-          ls -la
-          pwd
+      # - name: Change permissions
+      #   run: |
+      #     mkdir localrepo
+      #     chown -R builder:builder .
+      #
+      # - name: Debug
+      #   run: |
+      #     ls -la
+      #     pwd
+      #
+      # - name: Build PKGBUILD
+      #   run: |
+      #     cd localrepo
+      #     ls -la
+      #     ls -la ..
+      #     ../update.sh
+      #
+      # - name: Debug
+      #   run: |
+      #     ls -la
+      #     pwd
 
       - name: Install archiso
         run: |
           pacman -Sy --needed --noconfirm archiso
 
-      - name: Debug
-        run: |
-          ls -la
-          pwd
-          whoami
-          echo $HOME
-
-      - name: Install Zsh
-        run: |
-          pacman -Sy --needed --noconfirm zsh
-
-      - name: Zinit files
-        run: |
-          cp releng/airootfs/etc/skel/.zshrc $HOME
-          export TERM=xterm
-          zsh -c "source ~/.zshrc"
-          cp -r $HOME/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
+      # - name: Debug
+      #   run: |
+      #     ls -la
+      #     pwd
+      #     whoami
+      #     echo $HOME
+      #
+      # - name: Install Zsh
+      #   run: |
+      #     pacman -Sy --needed --noconfirm zsh
+      #
+      # - name: Zinit files
+      #   run: |
+      #     cp releng/airootfs/etc/skel/.zshrc $HOME
+      #     export TERM=xterm
+      #     zsh -c "source ~/.zshrc"
+      #     cp -r $HOME/.local/share/zinit/ ./releng/airootfs/home/cilgin/.local/share/
 
       - name: Install nvim
         run: |
@@ -93,9 +93,9 @@ jobs:
         run: |
           useradd -m cilgin
           echo 'cilgin ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
-          runuser --user cilgin -- git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
-          runuser --user cilgin -- nvim --headless "+Lazy! sync" +qa
-          runuser --user cilgin -- cp -r $HOME/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/nvim/
+          sudo -u cilgin git clone --depth 1 https://github.com/NvChad/starter ~/.config/nvim
+          sudo -u cilgin nvim --headless "+Lazy! sync" +qa
+          sudo -u cilgin cp -r $HOME/.local/share/nvim/ ./releng/airootfs/home/cilgin/.local/nvim/
 
       - name: Debug
         run: |
